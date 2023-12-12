@@ -56,7 +56,7 @@ public class Lisatieto implements Cloneable {
      */
     public void setID(int id) {
         tietoID = id;
-        if(tietoID >= seuraavaID)seuraavaID = tietoID + 1;
+        if(tietoID >= seuraavaID) seuraavaID = tietoID + 1;
     }
     /**
      * Asettaa kirjalle tunnisteen
@@ -143,7 +143,7 @@ public class Lisatieto implements Cloneable {
     
     /**
      * Täyttää lisätiedon
-     * @param id tunnistenumero
+     * @param id kirjan tunnistenumero
      */
     public void taytaLisatiedot(int id) {
         this.kirjaID = id;
@@ -194,12 +194,10 @@ public class Lisatieto implements Cloneable {
     }
     
     /**
-     * Pääohjelma testaamista varten
+     * Pääohjelma 
      */
     public static void main() {
-        Lisatieto testiTieto = new Lisatieto();
-        testiTieto.taytaLisatiedot(1);
-        testiTieto.tulosta(System.out);
+        //Tyhjä blokki
 
     }
 

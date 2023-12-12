@@ -67,14 +67,14 @@ public class Kirja implements Cloneable {
      */
     public void setID(int id ) {
         kirjaID = id;
-        if(kirjaID >= seuraavaID) seuraavaID = kirjaID++;
+        if(kirjaID >= seuraavaID) seuraavaID = kirjaID + 1;
     }
     
     /**
      * Palauttaa kirjan tunnistenumeron
      * @return kirjan tunnistenumero
      */
-    public int getID() {
+    public int getKirjaID() {
         return this.kirjaID;
     }
     
@@ -131,7 +131,7 @@ public class Kirja implements Cloneable {
     
     public void parse(String rivi) {
         StringBuilder lankaRakentaja = new StringBuilder(rivi);
-        setID(Mjonot.erota(lankaRakentaja, '|', getID()));
+        setID(Mjonot.erota(lankaRakentaja, '|', getKirjaID()));
         kirjanNimi = Mjonot.erota(lankaRakentaja, '|', kirjanNimi);
         kirjailijanNimi = Mjonot.erota(lankaRakentaja, '|', kirjailijanNimi);
         kirjanJulkaisija = Mjonot.erota(lankaRakentaja, '|', kirjanJulkaisija);
@@ -144,7 +144,7 @@ public class Kirja implements Cloneable {
     
     @Override
     public String toString() {
-        return "" + getID() + '|' + kirjanNimi + '|' + kirjailijanNimi + '|'  + kirjanJulkaisija + '|'  + kirjanKieli + '|' +  kirjanTyyli + '|'  + kirjanGenre + '|'  + kirjanSivut + '|' + kirjanJulkaisu + '|';
+        return "" + getKirjaID() + '|' + kirjanNimi + '|' + kirjailijanNimi + '|'  + kirjanJulkaisija + '|'  + kirjanKieli + '|' +  kirjanTyyli + '|'  + kirjanGenre + '|'  + kirjanSivut + '|' + kirjanJulkaisu + '|';
     }
     
     /**
@@ -246,12 +246,11 @@ public class Kirja implements Cloneable {
     
     
     /**
-     * Luokan testaamista varten maini
+     * maini
      */
     public static void main() {
-        Kirja testiKirja = new Kirja();
-        testiKirja.tulosta(System.out);
-        
+        // Tyhjä
     }
 
 }
+

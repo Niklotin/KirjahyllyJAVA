@@ -12,7 +12,6 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-
 import Kirjahylly.Kirja;
 import Kirjahylly.Kirjahylly;
 import Kirjahylly.Lisatieto;
@@ -95,6 +94,17 @@ public class KirjahyllyGUIController implements Initializable {
        tulostaKirjat(tulostusControl.getTextArea());
     }
     
+    @FXML private void handleArvoKirja() {
+        int random = (int) (Math.random() * chooserKirjat.getItems().size());
+        if(random == satunnainen) 
+        {
+            handleArvoKirja();
+            return;
+        }
+        chooserKirjat.setSelectedIndex(random);
+        satunnainen = random;
+        
+    }
     
     // ------------ Handlerit ylös, loput alas :=)
     
@@ -103,6 +113,7 @@ public class KirjahyllyGUIController implements Initializable {
     private Lisatieto lisatietoKohdalla;
     private String kirjahyllynNimi = "Itäsiiven kirjahylly";
     private TextField[] muutokset;
+    private int satunnainen = 0;
     
     /**
      * Alustaa valitsimet, kuunetlijat ja tekstikentät
@@ -117,6 +128,9 @@ public class KirjahyllyGUIController implements Initializable {
                                  editTyyli, editGenre, editSivut, editJulkaisu};
     }
     
+
+     
+    
     /**
      * Hakee kirjat
      * @param kirjanID kirjaidid
@@ -128,7 +142,7 @@ public class KirjahyllyGUIController implements Initializable {
         ArrayList<Kirja> kirjat;
         if(kirjaid == 0) {
             Kirja kohdalla = kirjaKohdalla;
-            if(kohdalla != null) kirjaid = kohdalla.getID();
+            if(kohdalla != null) kirjaid = kohdalla.getKirjaID();
         }
         
         int kentanNumero = hakuKentat.getSelectionModel().getSelectedIndex();
@@ -140,9 +154,10 @@ public class KirjahyllyGUIController implements Initializable {
             kirjat = kirjahylly.haku(haku, kentanNumero);
             for(int i = 0; i < kirjat.size(); i++) {
                 Kirja kirja = kirjat.get(i);
-                if(kirja.getID() == kirjaid) index = i;
+                if(kirja.getKirjaID() == kirjaid) index = i;
                 chooserKirjat.add(kirja.getNimi(), kirja);
             }
+
         } catch (SailoException se) {
             Dialogs.showMessageDialog("Kirjojen haku ongelma!!!");
         }
@@ -195,7 +210,7 @@ public class KirjahyllyGUIController implements Initializable {
             kirja = LisaaKirjaController.kysyKirja(null, kirja);
             if (kirja == null) return;
             kirjahylly.korvaaTaiLisaa(kirja);
-            haku(kirja.getID());
+            haku(kirja.getKirjaID());
         } catch (CloneNotSupportedException e) {
             System.err.println(e.getMessage() + " kloonaus ei onnistu");
         } catch (SailoException se) {
@@ -295,7 +310,7 @@ public class KirjahyllyGUIController implements Initializable {
             if (uusi == null) return;
             uusi.kirjaaKirja();
             kirjahylly.lisaa(uusi);
-            haku(uusi.getID());
+            haku(uusi.getKirjaID());
         } catch (SailoException e) {
             Dialogs.showMessageDialog("Kirjan luominen ei onnistunut! " + e.getMessage());
         }
@@ -309,7 +324,7 @@ public class KirjahyllyGUIController implements Initializable {
         uusi = LisaaLisatietoController.kysyLisatieto(null, uusi);
         if(uusi == null) return;
         uusi.kirjaa();
-        uusi.setKirjanID(kirjaKohdalla.getID());
+        uusi.setKirjanID(kirjaKohdalla.getKirjaID());
         kirjahylly.lisaa(uusi);
         naytaLisatiedot(kirjaKohdalla);
     }

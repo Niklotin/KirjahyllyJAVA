@@ -54,7 +54,7 @@ public class Kirjat {
      */
     public int etsiID(int id) {
         for (int i = 0; i <lkm; i++)
-            if(id==alkiot[i].getID()) return i;
+            if(id==alkiot[i].getKirjaID()) return i;
         return -1;
     }
     
@@ -138,10 +138,10 @@ public class Kirjat {
      * @throws SailoException jos ei mahdu
      */
     public void korvaaTaiLisaa(Kirja kirja) throws SailoException {
-        int kirjanID = kirja.getID();
+        int kirjanID = kirja.getKirjaID();
         
         for(int i=0; i<lkm; i++) {
-            if(alkiot[i].getID() == kirjanID) {
+            if(alkiot[i].getKirjaID() == kirjanID) {
                 alkiot[i] = kirja;
                 muutettu = true;
                 return;

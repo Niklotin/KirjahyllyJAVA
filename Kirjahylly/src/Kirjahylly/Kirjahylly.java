@@ -149,8 +149,8 @@ public class Kirjahylly {
      */
     public void poistaKirja(Kirja kirja) {
         if(kirja == null) return;
-        kirjat.poista(kirja.getID());
-        lisatiedot.poistaKirjanLisatiedot(kirja.getID());
+        kirjat.poista(kirja.getKirjaID());
+        lisatiedot.poistaKirjanLisatiedot(kirja.getKirjaID());
     }
     
     /**
@@ -199,7 +199,8 @@ public class Kirjahylly {
      * @return lista teidoista
      */
     public List<Lisatieto> annaLisatiedot(Kirja kirja) {
-        return lisatiedot.annaTiedot(kirja.getID());
+        return lisatiedot.annaTiedot(kirja.getKirjaID());
     }
 
 }
+
